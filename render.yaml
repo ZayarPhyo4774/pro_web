@@ -11,8 +11,7 @@ services:
     plan: free
     rootDir: backend
     buildCommand: ./build.sh
-    preDeployCommand: python manage.py migrate
-    startCommand: gunicorn echelon.wsgi:application
+    startCommand: python manage.py migrate && gunicorn echelon.wsgi:application
     envVars:
       - key: DATABASE_URL
         fromDatabase:
