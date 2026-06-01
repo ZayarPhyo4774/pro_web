@@ -1,0 +1,25 @@
+# Node
+node_modules
+.next
+out
+.DS_Store
+.env.local
+*.tsbuildinfo
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+env
+venv
+byvenv
+.venv
+*.sqlite3
+backend/.env
+backend/media/
+backend/staticfiles/
+
+# Editor
+.vscode
+.idea

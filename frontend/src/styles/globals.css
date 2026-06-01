@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --color-primary: #f5f2ec;
+  --color-gold: #a8874a;
+  --color-forest: #0f3d2e;
+  --color-offwhite: #1a1814;
+  --color-surface: #ece8e0;
+  --color-muted: #5c5348;
+  --color-muted-soft: #7a7064;
+  --color-input-bg: rgba(0, 0, 0, 0.04);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-glass-bg: rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 32px 80px rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  color-scheme: dark;
+  --color-primary: #0b0b0b;
+  --color-gold: #c8a96b;
+  --color-forest: #0f3d2e;
+  --color-offwhite: #f8f8f8;
+  --color-surface: #1a1a1a;
+  --color-muted: #d3cbc0;
+  --color-muted-soft: #b9af9f;
+  --color-input-bg: rgba(0, 0, 0, 0.5);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-glass-bg: rgba(255, 255, 255, 0.04);
+  --shadow-glow: 0 32px 80px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html[data-locale='mm'] body {
+  font-family: var(--font-myanmar), var(--font-inter), system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-primary);
+  color: var(--color-offwhite);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.dark body::before {
+  opacity: 0.04;
+}
+
+:root:not(.dark) body::before {
+  opacity: 0.02;
+}
+
+::selection {
+  background: rgba(200, 169, 107, 0.35);
+  color: inherit;
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.font-accent {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+.luxury-gradient {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(168, 135, 74, 0.1), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(15, 61, 46, 0.08), transparent),
+    var(--color-primary);
+}
+
+.dark .luxury-gradient {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(200, 169, 107, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(15, 61, 46, 0.15), transparent),
+    var(--color-primary);
+}
+
+.glass-panel {
+  border: 1px solid var(--color-border);
+  background: var(--color-glass-bg);
+  box-shadow: var(--shadow-glow);
+  @apply backdrop-blur-2xl;
+}
+
+.text-muted {
+  color: color-mix(in srgb, var(--color-muted) 90%, transparent);
+}
+
+.text-muted-soft {
+  color: var(--color-muted-soft);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.swiper-pagination-bullet {
+  @apply !opacity-100;
+  background: color-mix(in srgb, var(--color-offwhite) 30%, transparent) !important;
+}
+
+.dark .swiper-pagination-bullet {
+  @apply !bg-white/30;
+}
+
+.swiper-pagination-bullet-active {
+  @apply !bg-gold !w-6 !rounded-full;
+}
+
+.line-reveal {
+  overflow: hidden;
+  display: block;
+}
+
+.line-reveal > span {
+  display: block;
+}
+
+.scroll-progress {
+  transform-origin: left;
+}
+
+.input-field {
+  @apply w-full rounded-2xl border px-5 py-4 outline-none transition;
+  border-color: var(--color-border);
+  background: var(--color-input-bg);
+  color: var(--color-offwhite);
+}
+
+.input-field:focus {
+  @apply ring-2;
+  border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
+  --tw-ring-color: color-mix(in srgb, var(--color-gold) 20%, transparent);
+}
