@@ -14,7 +14,7 @@ def csv_config(name, default=''):
 
 _DEV_SECRET = 'dev-only-change-in-production'
 SECRET_KEY = config('SECRET_KEY', default=_DEV_SECRET)
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = csv_config('ALLOWED_HOSTS', default='localhost,127.0.0.1')
 RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default='')
 if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
@@ -124,10 +124,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = csv_config(
     'CORS_ALLOWED_ORIGINS',
-    default='http://localhost:3000,http://127.0.0.1:3000',
+    default='http://localhost:3000,http://127.0.0.1:3000,https://pro-web-orcin.vercel.app/'
 )
 CORS_ALLOW_CREDENTIALS = True
-FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000')
+FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000,https://pro-web-orcin.vercel.app/')
 CSRF_TRUSTED_ORIGINS = csv_config('CSRF_TRUSTED_ORIGINS', default=FRONTEND_URL)
 
 if not DEBUG:
