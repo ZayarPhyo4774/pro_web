@@ -45,6 +45,17 @@ class NewsletterAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['email'], 'collector@example.com')
 
+    def test_subscribe_rejects_invalid_email(self):
+        response = self.client.post('/api/newsletter/', {'email': 'not-an-email'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_subscribe_existing_email_is_idempotent(self):
+        first = self.client.post('/api/newsletter/', {'email': 'collector@example.com'}, format='json')
+        second = self.client.post('/api/newsletter/', {'email': 'COLLECTOR@example.com'}, format='json')
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(second.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(second.data['email'], 'collector@example.com')
+
     def test_public_endpoints_have_rate_limits(self):
         rates = settings.REST_FRAMEWORK['DEFAULT_THROTTLE_RATES']
         self.assertEqual(NewsletterCreateView.throttle_classes, [NewsletterRateThrottle])

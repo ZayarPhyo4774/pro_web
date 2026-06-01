@@ -101,6 +101,8 @@ class InquirySerializer(serializers.ModelSerializer):
 
 
 class NewsletterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+
     class Meta:
         model = NewsletterSubscriber
         fields = ('id', 'email', 'subscribed_at')

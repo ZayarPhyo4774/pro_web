@@ -90,9 +90,9 @@ class NewsletterCreateView(generics.CreateAPIView):
     throttle_classes = [NewsletterRateThrottle]
 
     def create(self, request, *args, **kwargs):
-        email = request.data.get('email', '').strip().lower()
-        if not email:
-            return Response({'email': ['This field is required.']}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email'].strip().lower()
         subscriber, created = NewsletterSubscriber.objects.get_or_create(
             email=email,
             defaults={'is_active': True},
@@ -100,8 +100,8 @@ class NewsletterCreateView(generics.CreateAPIView):
         if not created and not subscriber.is_active:
             subscriber.is_active = True
             subscriber.save(update_fields=['is_active'])
-        serializer = self.get_serializer(subscriber)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        output = self.get_serializer(subscriber)
+        return Response(output.data, status=status.HTTP_201_CREATED)
 
 
 class AdminStatsView(APIView):
